@@ -52,7 +52,7 @@ function tryParse(s) { try { return JSON.parse(s); } catch { return null; } }
 
   for (let attempt = 1; attempt <= 3; attempt++) {
     logf(`ATTEMPT ${attempt}`);
-    const searchRaw = contentText(await rpc('tools/call', { name: 'search', arguments: { scope: 'ops/live' } }));
+    const searchRaw = contentText(await rpc('tools/call', { name: 'search', arguments: { query: 'tram-3 stall', scope: 'ops/live' } }));
     const searchRes = tryParse(searchRaw);
     logf('SEARCH RAW: ' + searchRaw);
     if (!searchRes) throw new Error('search result not JSON');
