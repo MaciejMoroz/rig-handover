@@ -52,8 +52,9 @@ function tryParse(s) { try { return JSON.parse(s); } catch { return null; } }
 
   for (let attempt = 1; attempt <= 3; attempt++) {
     logf(`ATTEMPT ${attempt}`);
-    const searchRes = tryParse(contentText(await rpc('tools/call', { name: 'search', arguments: { scope: 'ops/live' } }));
-    logf('SEARCH PARSED: ' + JSON.stringify(searchRes));
+    const searchRaw = contentText(await rpc('tools/call', { name: 'search', arguments: { scope: 'ops/live' } }));
+    const searchRes = tryParse(searchRaw);
+    logf('SEARCH RAW: ' + searchRaw);
     if (!searchRes) throw new Error('search result not JSON');
     const step1 = searchRes.step;
     const entries = searchRes.entries || searchRes.results || searchRes.items || searchRes.records || [];
